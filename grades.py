@@ -46,9 +46,10 @@ def main():
                 line += '-'
             output.write(line + '\n')
             output.write("Average GPA: " + str(round((gpasum / gpacount), 2)) + "\n\n")
-            for instname in instructors:
-                instgpasum = sum(instructors[instname])
-                instgpacount = len(instructors[instname])
+            sorted_instructors = dict(sorted(instructors.items(), key=lambda x:x[1], reverse=True))
+            for instname in sorted_instructors:
+                instgpasum = sum(sorted_instructors[instname])
+                instgpacount = len(sorted_instructors[instname])
                 output.write(instname + ": " + str(round(instgpasum / instgpacount, 2)) + '\n')
 
 
