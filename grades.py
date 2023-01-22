@@ -97,18 +97,21 @@ def parse_data(mode: str):
     filename = f"results/{name2}.txt"
     with open(filename, 'w') as output:
         header = name2 + " " + name
-        output.write(header + '\n')
+        output.write(f"{header}\n")
         line = ""
         for i in range(len(header)):
             line += '-'
-        output.write(line + '\n')
+        output.write(f"{line}\n")
         avg = round((gpasum / gpacount), 2)
-        output.write("Average GPA: " + str(avg) + "\n\n")
-        sorted_instructors = dict(sorted(instructors.items(), key=lambda x:x[1], reverse=True))
+        output.write(f"Average GPA: {str(avg)}\n\n")
+        sorted_instructors = {}
+        for instname in list(instructors.keys()):
+            instgpasum = sum(instructors[instname])
+            instgpacount = len(instructors[instname])
+            sorted_instructors[instname] = round(instgpasum / instgpacount, 2)
+        sorted_instructors = dict(sorted(sorted_instructors.items(), key=lambda x:x[1], reverse=True))
         for instname in sorted_instructors:
-            instgpasum = sum(sorted_instructors[instname])
-            instgpacount = len(sorted_instructors[instname])
-            output.write(instname + ": " + str(round(instgpasum / instgpacount, 2)) + '\n')
+            output.write(instname + ": " + str(sorted_instructors[instname]) + '\n')
         print(f"Average GPA for {header} is {str(avg)} with data from {len(sorted_instructors)} instructors.")
         print(f"More info in {filename}.")
 
