@@ -119,7 +119,7 @@ def parse_data(arg1: str, arg2: str):
 
 def main():
     if len(argv) == 1:
-        print("")
+        print("Use the --help option for instructions on running this script.")
         raise SystemExit()
     elif argv[2] == "--help" or argv[2] == "-h":
         print("Give the department and the course number of a course as two arguments (ex. python3 grades.py CS 3214)")
