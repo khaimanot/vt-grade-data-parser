@@ -120,12 +120,12 @@ def parse_data(arg1: str, arg2: str):
 def main():
     if len(argv) == 1:
         print("")
-        exit()
+        raise SystemExit()
     elif argv[2] == "--help" or argv[2] == "-h":
         print("Give the department and the course number of a course as two arguments (ex. python3 grades.py CS 3214)")
         print("or give the course name as a single argument in quotes (ex. python3 grades.py \"Computer Systems\".")
         print("You can give multiple courses at a time.\n")
-        exit()
+        raise SystemExit()
     # arguments have been given
     i = 1
     while i < len(argv):
