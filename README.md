@@ -1,6 +1,6 @@
 # Virginia Tech Grade Distribution Data Parser
 
-#### The latest release (as well as all others) can be found on the releases page at https://github.com/khaimanot/vt-grade-data-parser/releases.
+#### The latest release (as well as all others) can be found on the releases page at https://github.com/khaimanot/vt-grade-data-parser/releases. This script should be compatible with Python 3.4.1 and beyond.
 
 #### Computes and displays the overall average GPA for the given course, as well as that of each instructor for the course (sorted by GPA in decreasing order). 
 
