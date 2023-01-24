@@ -121,7 +121,7 @@ def main():
     if len(argv) == 1:
         print("Use the --help option for instructions on running this script.")
         raise SystemExit()
-    elif argv[2] == "--help" or argv[2] == "-h":
+    elif argv[1] == "--help" or argv[1] == "-h":
         print("Give the department and the course number of a course as two arguments (ex. python3 grades.py CS 3214)")
         print("or give the course name as a single argument in quotes (ex. python3 grades.py \"Computer Systems\".")
         print("You can give multiple courses at a time.\n")
