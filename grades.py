@@ -63,15 +63,10 @@ def parse(data: pandas.DataFrame, arg: str, verbose: bool):
 
 def process_arguments():
     # handle optional arguments
-    if argv[1] == "--help" or argv[1] == "-h":
-        print("Give the department and the course number of a course as two arguments (ex. python3 grades.py CS 3214)")
-        print("or give the course name as a single argument in quotes (ex. python3 grades.py \"Computer Systems\").")
-        print("You can give multiple courses at a time.\n")
-        print("You can give any of these optional arguments before listing the courses:")
-        print("-h or --help:    Display this help information")
-        print("-t or --terms:   Give a list of any semester terms to limit the search (ex. python3 grades.py -t \"Fall,Spring,Winter,Summer I,Summer II\"...).")
-        print("                 The quotes must be used, and a single comma must separate each term. You can give any number of the possible terms.")
+    if "--help" in argv or "-h" in argv:
+        print_help()
         raise SystemExit()
+
     i = 1
     t = "Fall,Winter,Spring,Summer I,Summer II"
     v = False
@@ -113,6 +108,16 @@ def main():
 
     # arguments have been given
     process_arguments()
+
+
+def print_help():
+    print("Give the department and the course number of a course as two arguments (ex. python3 grades.py CS 3214)")
+    print("or give the course name as a single argument in quotes (ex. python3 grades.py \"Computer Systems\").")
+    print("You can give multiple courses at a time.\n")
+    print("You can give any of these optional arguments before listing the courses:")
+    print("-h or --help:    Display this help information")
+    print("-t or --terms:   Give a list of any semester terms to limit the search (ex. python3 grades.py -t \"Fall,Spring,Winter,Summer I,Summer II\"...).")
+    print("                 The quotes must be used, and a single comma must separate each term. You can give any number of the possible terms.")
 
 
 if __name__ == "__main__":
