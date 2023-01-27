@@ -4,15 +4,22 @@ from os import makedirs
 
 
 
-def write_results(course: str, terms: str, header: str, filename: str, avg: float, totals: list):
+def write_results(course: str, terms: str, header: str, filename: str, avg: float, totals: list, verbose: bool):
     makedirs("results", exist_ok=True)
     with open(filename, 'w') as output:
         output.write(header)
         output.write(f"Average GPA: {avg}\n\n")
+        if verbose:
+            print(header[:-1])
+            print(f"Average GPA: {avg}\n")
         for total in totals:
             output.write(f"{total[0]}: {total[1]}\n")
-    print(f"Average GPA is {str(avg)} for \"{course}\" with data from {len(totals)} instructors in these terms: {terms}.")
-    print(f"More info in {filename}.\n")
+            if verbose:
+                print(f"{total[0]}: {total[1]}")
+    if not verbose:
+        print(f"Average GPA is {str(avg)} for \"{course}\" with data from {len(totals)} instructors in these terms: {terms}.")
+        print(f"More info in {filename}.\n")
+
 
 def term_key(term):
     if term == "Fall":
@@ -26,7 +33,8 @@ def term_key(term):
     elif term == "Summer II":
         return 4
 
-def parse(data: pandas.DataFrame, arg: str):
+
+def parse(data: pandas.DataFrame, arg: str, verbose: bool):
     if data.empty:
         print(f"No data found for {arg}.\n")
     else:
@@ -50,7 +58,7 @@ def parse(data: pandas.DataFrame, arg: str):
         insttotals = [(inst, round(data[data["Instructor"] == inst]['GPA'].sum() / len(data[data["Instructor"] == inst].index), 2)) for inst in instructors]
         insttotals.sort(key=lambda x: x[1], reverse=True)
         avg_gpa = round(data.GPA.mean(), 2)
-        write_results(course, terms, header, filename, avg_gpa, insttotals)
+        write_results(course, terms, header, filename, avg_gpa, insttotals, verbose)
 
 
 def process_arguments():
@@ -66,10 +74,13 @@ def process_arguments():
         raise SystemExit()
     i = 1
     t = "Fall,Winter,Spring,Summer I,Summer II"
+    v = False
     while argv[i].startswith("-"):
         if argv[i] == "--terms" or argv[i] == "-t":
             i += 1
             t = argv[i]
+        elif argv[i] == "--verbose" or argv[i] == "-v":
+            v = True
         i += 1
     terms = t.split(',')
 
@@ -79,16 +90,16 @@ def process_arguments():
     while i < len(argv):
         if i == len(argv) - 1: # final argument is single arg coursename
             data2 = data[data.CourseTitle == argv[i]]
-            parse(data2[data2['Term'].isin(terms)], argv[i])
+            parse(data2[data2['Term'].isin(terms)], argv[i], v)
             break
         if argv[i + 1].isnumeric(): # current argument is part of subj + num
             data2 = data[data.Subject == argv[i]]
             data3 = data2[data2.CourseNo == int(argv[i + 1])]
-            parse(data3[data3['Term'].isin(terms)], argv[i] + argv[i + 1])
+            parse(data3[data3['Term'].isin(terms)], argv[i] + argv[i + 1], v)
             i += 2
         else: # current argument is single arg coursename
             data2 = data[data.CourseTitle == argv[i]]
-            parse(data2[data2['Term'].isin(terms)], argv[i])
+            parse(data2[data2['Term'].isin(terms)], argv[i], v)
             i += 1
 
 
