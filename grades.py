@@ -14,6 +14,17 @@ def write_results(course: str, terms: str, header: str, filename: str, avg: floa
     print(f"Average GPA is {str(avg)} for \"{course}\" with data from {len(totals)} instructors in these terms: {terms}.")
     print(f"More info in {filename}.\n")
 
+def term_key(term):
+    if term == "Fall":
+        return 0
+    elif term == "Winter":
+        return 1
+    elif term == "Spring":
+        return 2
+    elif term == "Summer I":
+        return 3
+    elif term == "Summer II":
+        return 4
 
 def parse(data: pandas.DataFrame, arg: str):
     if data.empty:
@@ -25,7 +36,7 @@ def parse(data: pandas.DataFrame, arg: str):
         course = f"{coursecode} {coursename}"
         namelen = len(header)
 
-        term_list = data.Term.unique()
+        term_list = sorted(data.Term.unique(), key=term_key)
         terms = ""
         for term in term_list:
             terms += f"{term}, "
