@@ -15,7 +15,7 @@ def write_results(course: str, terms: str, header: str, filename: str, avg: floa
     print(f"More info in {filename}.\n")
 
 
-def parse(data: pandas.DataFrame, arg: str, term_list: list):
+def parse(data: pandas.DataFrame, arg: str):
     if data.empty:
         print(f"No data found for {arg}.\n")
     else:
@@ -25,6 +25,7 @@ def parse(data: pandas.DataFrame, arg: str, term_list: list):
         course = f"{coursecode} {coursename}"
         namelen = len(header)
 
+        term_list = data.Term.unique()
         terms = ""
         for term in term_list:
             terms += f"{term}, "
@@ -67,16 +68,16 @@ def process_arguments():
     while i < len(argv):
         if i == len(argv) - 1: # final argument is single arg coursename
             data2 = data[data.CourseTitle == argv[i]]
-            parse(data2[data2['Term'].isin(terms)], argv[i], terms)
+            parse(data2[data2['Term'].isin(terms)], argv[i])
             break
         if argv[i + 1].isnumeric(): # current argument is part of subj + num
             data2 = data[data.Subject == argv[i]]
             data3 = data2[data2.CourseNo == int(argv[i + 1])]
-            parse(data3[data3['Term'].isin(terms)], argv[i] + argv[i + 1], terms)
+            parse(data3[data3['Term'].isin(terms)], argv[i] + argv[i + 1])
             i += 2
         else: # current argument is single arg coursename
             data2 = data[data.CourseTitle == argv[i]]
-            parse(data2[data2['Term'].isin(terms)], argv[i], terms)
+            parse(data2[data2['Term'].isin(terms)], argv[i])
             i += 1
 
 
