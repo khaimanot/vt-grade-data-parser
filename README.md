@@ -1,6 +1,6 @@
 # Virginia Tech Grade Distribution Data Parser
 
-#### The latest release (as well as all others) can be found on the releases page at https://github.com/khaimanot/vt-grade-data-parser/releases. This script should be compatible with Python 3.4.1 and beyond.
+#### This script should be compatible with Python 3.8 and beyond. The latest full release (as well as all others) can be found on the releases page at https://github.com/khaimanot/vt-grade-data-parser/releases.
 
 Computes and displays the overall average GPA for the given course, as well as that of each instructor for the course (sorted by GPA in decreasing order). 
 
@@ -17,5 +17,5 @@ Takes the department and the course number of a course as two arguments, or a si
     python3 grades.py -h
 
 #### -t or --terms:   Give a list of any semester terms to limit the search.
-    python3 grades.py -t "Fall Spring Winter Summer I Summer II" MATH 1225
-#### The quotes must be used, and you can give any number of the possible terms.
+    python3 grades.py -t "Fall,Spring,Winter,Summer I,Summer II" MATH 1225
+#### The quotes must be used, and a single comma must separate each term. You can give any number of the possible terms.
