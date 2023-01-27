@@ -89,18 +89,21 @@ def process_arguments():
     data.rename(columns={'Course Title': 'CourseTitle', 'Course No.': 'CourseNo', 'Academic Year': 'AcademicYear'}, inplace=True)
     while i < len(argv):
         if i == len(argv) - 1: # final argument is single arg coursename
-            data2 = data[data.CourseTitle == argv[i]]
-            parse(data2[data2['Term'].isin(terms)], argv[i], v)
+            d = data[data.CourseTitle == argv[i]]
+            parse(d[d['Term'].isin(terms)], argv[i], v)
             break
+        arg = ""
+        d = None
         if argv[i + 1].isnumeric(): # current argument is part of subj + num
-            data2 = data[data.Subject == argv[i]]
-            data3 = data2[data2.CourseNo == int(argv[i + 1])]
-            parse(data3[data3['Term'].isin(terms)], argv[i] + argv[i + 1], v)
-            i += 2
-        else: # current argument is single arg coursename
-            data2 = data[data.CourseTitle == argv[i]]
-            parse(data2[data2['Term'].isin(terms)], argv[i], v)
+            d = data[data.Subject == argv[i]]
+            d = d[d.CourseNo == int(argv[i + 1])]
+            arg = argv[i] + argv[i + 1]
             i += 1
+        else: # current argument is single arg coursename
+            d = data[data.CourseTitle == argv[i]]
+            arg = argv[i]
+        parse(d[d['Term'].isin(terms)], arg, v)
+        i += 1
 
 
 def main():
