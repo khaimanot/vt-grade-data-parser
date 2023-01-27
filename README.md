@@ -16,9 +16,9 @@ Takes the department and the course number of a course as two arguments, or a si
 #### replacing XX with the department and YYYY with the course number (ex. "python3 grades.py CS 1114", "python3 grades.py MATH 1225"), or with
     python3 grades.py "ZZZZZ"
 #### replacing ZZZZZ with the name of a course (including the quotes).
-### Optional arguments can also be given:
+### Optional arguments can also be given before any courses:
 
-#### -h or --help:    Display help information.
+#### -h or --help:    Display help information. Cannot be used with any other arguments.
     python3 grades.py -h
 
 #### -v or --verbose: Print all results to standard output in addition to the normal text file.
