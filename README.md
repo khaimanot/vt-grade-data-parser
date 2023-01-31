@@ -1,15 +1,26 @@
 # Virginia Tech Grade Distribution Data Parser
 
-#### Requirements:
-* Python 3.8 or beyond
-* The pandas library (run ```pip install pandas``` after installing Python)
-* The 'Grade Distribution.csv' file obtainable from https://udc.vt.edu/irdata/data/courses/grades
-#### The latest full release (as well as all others) can be found on the releases page at https://github.com/khaimanot/vt-grade-data-parser/releases.
-
 Computes and displays the overall average GPA for the given course, as well as that of each instructor for the course (sorted by GPA in decreasing order). 
 
 Takes the department and the course number of a course as two arguments, or a single course name in quotes. Multiple courses can be given at a time, and semester terms can be specified. Reads data from "Grade Distribution.csv", which must be obtained by the user with the export to CSV function at https://udc.vt.edu/irdata/data/courses/grades and placed in the same directory as "grades.py". Output is written to a text file for the course in a directory called "results", and it can also be printed to standard output.
-<br><br>
+#### Requirements:
+* Python 3.8 or beyond
+* The 'Grade Distribution.csv' file obtainable from https://udc.vt.edu/irdata/data/courses/grades
+## HOW TO INSTALL
+ Clone this repository with<br>
+`git clone https://github.com/khaimanot/vt-grade-data-parser.git`.
+
+Then enter the directory.
+
+If you'd like, create a Python virtual environment with <br>
+`python3 -m venv env`<br> and then activate it with<br>
+`source env/bin/activate`.
+
+Then, install the script's dependencies with<br> `pip install -r requirements.txt`.
+
+Don't forget to deactivate the virtual environment (if you're using it) with<br>
+`deactivate`.
+
 ## HOW TO RUN
 #### Run the script in its root directory (with "Grade Distribution.csv" in the same directory) with
     python3 grades.py XX YYYY
