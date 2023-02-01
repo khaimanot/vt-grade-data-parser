@@ -84,8 +84,6 @@ def process_arguments():
         if i == len(argv) - 1: # final argument is single arg coursenam
             parse(data[(data['Course Title'] == argv[i]) & (data['Term'].isin(terms))], argv[i], v)
             break
-        arg = None
-        d = None
         if argv[i + 1].isnumeric(): # current argument is part of subj + num
             d = data[(data['Subject'] == argv[i]) & (data['Course No.'] == int(argv[i + 1]))]
             arg = argv[i] + argv[i + 1]
