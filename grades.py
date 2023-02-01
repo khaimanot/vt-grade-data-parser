@@ -80,22 +80,18 @@ def process_arguments():
     terms = t.split(',')
 
     data = pandas.read_csv('Grade Distribution.csv')
-    # rename columns so they can be accessed as fields of data in while loop
-    data.rename(columns={'Course Title': 'CourseTitle', 'Course No.': 'CourseNo', 'Academic Year': 'AcademicYear'}, inplace=True)
     while i < len(argv):
-        if i == len(argv) - 1: # final argument is single arg coursename
-            d = data[data.CourseTitle == argv[i]]
-            parse(d[d['Term'].isin(terms)], argv[i], v)
+        if i == len(argv) - 1: # final argument is single arg coursenam
+            parse(data[(data['Course Title'] == argv[i]) & (data['Term'].isin(terms))], argv[i], v)
             break
-        arg = ""
+        arg = None
         d = None
         if argv[i + 1].isnumeric(): # current argument is part of subj + num
-            d = data[data.Subject == argv[i]]
-            d = d[d.CourseNo == int(argv[i + 1])]
+            d = data[(data['Subject'] == argv[i]) & (data['Course No.'] == int(argv[i + 1]))]
             arg = argv[i] + argv[i + 1]
             i += 1
         else: # current argument is single arg coursename
-            d = data[data.CourseTitle == argv[i]]
+            d = data[data['Course Title'] == argv[i]]
             arg = argv[i]
         parse(d[d['Term'].isin(terms)], arg, v)
         i += 1
